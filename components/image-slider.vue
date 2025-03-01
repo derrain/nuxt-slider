@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, computed } from 'vue';
+  import { ref, computed, onMounted, onUnmounted } from 'vue';
 
   const props = defineProps({
     images: {
@@ -10,9 +10,20 @@
       type: String,
       required: false,
     },
-    sliderWidth: {
+    autoplay: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    maxWidth: {
       type: String,
       required: false,
+      default: "800px",
+    },
+    slideStyle: {
+      type: String,
+      required: false,
+      default: "fade",
     }
   });
 
@@ -20,15 +31,17 @@
     props.navBgShape === undefined || props.navBgShape.toLowerCase() === 'square' ?
       '0' :
       '50%');
-  const sliderWidth = props.sliderWidth === undefined ? '800px' : props.sliderWidth;
+  const sliderWidth = computed(() => props.maxWidth);
 
   const currentIndex = ref(0);
+  let interval = null;
 
   const prevSlide = () => {
     currentIndex.value =
       currentIndex.value === 0 ?
         props.images.length - 1 :
         currentIndex.value - 1;
+    restartAutoplay();
   };
 
   const nextSlide = () => {
@@ -36,19 +49,50 @@
       currentIndex.value === props.images.length - 1 ?
         0 :
         currentIndex.value + 1;
+    restartAutoplay();
   };
+
+  const startAutoplay = () => {
+    if (props.autoplay) {
+      interval = setInterval(nextSlide, 5000);
+    }
+  };
+
+  const stopAutoplay = () => {
+    if (interval) {
+      clearInterval(interval);
+    }
+  };
+
+  const restartAutoplay = () => {
+    stopAutoplay();
+    startAutoplay();
+  };
+
+  onMounted(() => startAutoplay());
+
+  onUnmounted(() => stopAutoplay());
+
+  watch(() => props.autoplay, (newVal) => {
+    if (newVal)
+      startAutoplay();
+    else
+      stopAutoplay();
+  });
 </script>
 
 <template>
   <div class="slider-container" :style="{ maxWidth: sliderWidth }">
-    <div class="slider">
+    <div
+      :class="`slider ${slideStyle}`"
+      :style="{ transform: slideStyle === 'slide' ? `translateX(-${currentIndex * 100}%)` : '' }">
       <div
         role="img"
         v-for="(image, index) in props.images" 
         :key="index" 
         class="slide" 
         :aria-label="image.alt === '' ? image.src : image.alt"
-        :class="{ active: index === currentIndex }"
+        :class="{ active: slideStyle === 'fade' && index === currentIndex }"
         :style="{ backgroundImage: `url('${image.url}')` }"
       >
       </div>
@@ -67,7 +111,6 @@
 <style lang="scss" scoped>
   .slider-container {
     width: 100%;
-    max-width: 1200px;
     height: 400px;
     position: relative;
     margin: auto;
@@ -95,6 +138,19 @@
         &.active {
           opacity: 1;
           z-index: 1;
+        }
+      }
+
+      &.slide {
+        width: 100%;
+        display: flex;
+        position: relative;
+        transition: transform .5s ease-in-out;
+
+        .slide {
+          flex: 0 0 100%;
+          position: relative;
+          opacity: 1;
         }
       }
     }
