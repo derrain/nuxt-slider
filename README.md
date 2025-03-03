@@ -34,13 +34,14 @@ A simple image slider component with customisable properties
 </template>
 ```
 ## Props
-| Prop      | Required | Values               | Default   | Description
-| --------- | -------- | -------------------- | --------- | -----------
-| images    | *        | Array                | undefined | List of images with url and alt.
-| navBgShape| -        | 'square' or 'circle' | 'square'  | 'square' or 'circle' for navigation buttons.
-| autoplay  | -        | Boolean              | true      | Enable/disable automatic sliding.
-| maxWidth  | -        | String               | '800px'   | Set max width of slider.
-| slideStyle| -        | 'fade' or 'slide'    | 'fade'    | 'fade' or 'slide' transition style.
+| Prop        | Required | Values               | Default   | Description
+| ----------- | -------- | -------------------- | --------- | -----------
+| images      | *        | Array                | undefined | List of images with url and alt.
+| navBgShape  | -        | 'square' or 'circle' | 'square'  | 'square' or 'circle' for navigation buttons.
+| autoplay    | -        | Boolean              | true      | Enable/disable automatic sliding.
+| maxWidth    | -        | String               | '800px'   | Set max width of slider.
+| slideStyle  | -        | 'fade' or 'slide'    | 'fade'    | 'fade' or 'slide' transition style.
+| timeInterval| -        | Number               | 5000      | Time between slide transitions.
 
 ## License
 MIT
