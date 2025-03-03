@@ -2,15 +2,36 @@
 A simple image slider component with customisable properties
 
 ## Live Demo
-[Nuxt3 Image Slider Demo](https://nuxt-slider.vercel.app/)
+[Image Slider Demo](https://nuxt-slider.vercel.app/)
 
 ## How to Use
-`npm i nuxt3-image-slider`
+`npm i @derrainds/image-slider`
+`npm add -D @derrainds/image-slider`
 
+## Important to Install
+`npm i @vesp/nuxt-fontawesome`
+`npm i @fortawesome/free-solid-svg-icons`
+`npm install -D sass-embedded`
+
+#### `nuxt.config.ts`
 ```
-import { ImageSlider } from "nuxt3-image-slider";
+  export default defineNuxtConfig({
+    // ...,
+    extends: [
+      "@derrainds/image-slider",
+    ],
+  });
+```
 
-<ImageSlider />
+#### `index.vue`
+```
+<script setup>
+  // ImageSlider image array
+</script>
+
+<template>
+  <ImageSlider />
+</template>
 ```
 ## Props
 | Prop      | Required | Values               | Default   | Description
