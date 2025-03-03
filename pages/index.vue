@@ -29,10 +29,17 @@
     'slide',
   ];
 
+  const intervalMiliseconds = [
+    2000,
+    3000,
+    5000,
+  ];
+
   const selectedShape = ref('square');
   const autoplayActive = ref(true);
   const selectedMaxWidth = ref(maxWidthOptions[0]);
   const selectedTransitionStyle = ref(transitionStyles[0]);
+  const selectedIntervalMiliseconds = ref(intervalMiliseconds[2]);
 
   const sliderCode = `
     <ImageSlider
@@ -41,6 +48,7 @@
       :autoplay="true | false" // Toggle autoplay on/off, default is true
       maxWidth="800px | 1200px | 50% | 100%" // Default is '800px'
       slideStyle="fade | slide" // Default is 'fade'
+      timeInterval=2000 | 3000 | 5000 // Default is set to 5000 miliseconds
     />
   `;
 </script>
@@ -53,7 +61,8 @@
       :navBgShape="selectedShape"
       :autoplay="autoplayActive"
       :maxWidth="selectedMaxWidth"
-      :slideStyle="selectedTransitionStyle" />
+      :slideStyle="selectedTransitionStyle"
+      :timeInterval="selectedIntervalMiliseconds" />
   </section>
 
   <section class="slider-props">
@@ -109,6 +118,16 @@
             {{ transitionStyle === 'fade' ? `${transitionStyle} (Default)` : transitionStyle }}
           </option>
         </select>
+      </div>
+
+      <div class="form-group">
+        <label>Time interval</label>
+        <div class="radio-btn-group">
+          <label v-for="intervalMilisecond in intervalMiliseconds" :for="`interval${intervalMilisecond}`">
+            <input type="radio" :id="`interval${intervalMilisecond}`" name="timeIntervals" :value="intervalMilisecond" v-model="selectedIntervalMiliseconds" />
+            {{ intervalMilisecond === 5000 ? `${intervalMilisecond} (Default)` : intervalMilisecond }}
+          </label>
+        </div>
       </div>
     </div>
   </section>

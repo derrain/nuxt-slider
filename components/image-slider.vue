@@ -24,13 +24,19 @@
       type: String,
       required: false,
       default: "fade",
+    },
+    timeInterval: {
+      type: Number,
+      required: false,
+      default: 5000,
     }
   });
 
   const navBtnRadius = computed(() => 
     props.navBgShape === undefined || props.navBgShape.toLowerCase() === 'square' ?
-      '0' :
-      '50%');
+      '0' : props.navBgShape.toLowerCase() === 'circle' ?
+      '50%' :
+      '0');
   const sliderWidth = computed(() => props.maxWidth);
 
   const currentIndex = ref(0);
@@ -54,7 +60,7 @@
 
   const startAutoplay = () => {
     if (props.autoplay) {
-      interval = setInterval(nextSlide, 5000);
+      interval = setInterval(nextSlide, props.timeInterval);
     }
   };
 
