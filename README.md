@@ -5,7 +5,7 @@ A simple image slider component with customisable properties
 [Image Slider Demo](https://nuxt-slider.vercel.app/)
 
 ## How to Use
-`npm i @derrainds/image-slider`
+`npm i @derrainds/image-slider`\n
 `npm add -D @derrainds/image-slider`
 
 ## Important to Install
