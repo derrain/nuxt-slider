@@ -5,10 +5,10 @@ A simple image slider component with customisable properties
 [Image Slider Demo](https://nuxt-slider.vercel.app/)
 
 ## How to Use
-`npm i @derrainds/image-slider`
+`npm i @nued/image-slider`
 
 
-`npm add -D @derrainds/image-slider`
+`npm add -D @nued/image-slider`
 
 ## Important to Install
 `npm i @vesp/nuxt-fontawesome @fortawesome/free-solid-svg-icons npm install -D sass-embedded`
@@ -18,7 +18,7 @@ A simple image slider component with customisable properties
   export default defineNuxtConfig({
     // ...,
     extends: [
-      "@derrainds/image-slider",
+      "@nued/image-slider",
     ],
   });
 ```
